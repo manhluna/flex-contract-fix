@@ -1,0 +1,51 @@
+{
+  "author": {
+    "name": "Manh Luna",
+    "email": "tuhoc98@gmail.com"
+  },
+  "dependencies": {
+    "bignumber.js": "8.0.2",
+    "ethereumjs-util": "6.1.0",
+    "flex-ether-fix": "1.5.0",
+    "lodash": "4.17.13",
+    "web3-eth-abi": "1.0.0-beta.46",
+    "web3": "1.2.1",
+    "web3-eth": "^1.2.1"
+  },
+  "deprecated": false,
+  "description": "A modern, flexible Ethereum smart contract abstraction.",
+  "engines": {
+    "node": ">=8.0"
+  },
+  "keywords": [
+    "ethereum",
+    "smart contracts",
+    "smart contract",
+    "contract",
+    "erc20",
+    "web3",
+    "abstraction",
+    "library",
+    "self-signed",
+    "async",
+    "await",
+    "private key",
+    "wallet",
+    "es2017",
+    "truffle",
+    "ens",
+    "simple",
+    "easy"
+  ],
+  "license": "Apache-2.0",
+  "main": "src/index.js",
+  "name": "flex-contract",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/merklejerk/flex-contract-fix.git"
+  },
+  "scripts": {
+    "test": "mocha --timeout 8000 ./test/*.js"
+  },
+  "version": "1.0.0"
+}
