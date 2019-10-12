@@ -29,14 +29,18 @@ yarn install flex-contract-fix
 
 ```js
 const FlexContract = require('flex-contract-fix');
-
-const ct = (abi, deployed_at) => {
-    return new FlexContract(abi, deployed_at);
-}
-
-async function past(contract,from,to,fromBlock,toBlock,fn){
+const abi = '[{"constant":true,"inputs":[],"name":"name","outputs":[{"internalType":"string","name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"delegate","type":"address"},{"internalType":"uint256","name":"numTokens","type":"uint256"}],"name":"approve","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"totalSupply","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"owner","type":"address"},{"internalType":"address","name":"buyer","type":"address"},{"internalType":"uint256","name":"numTokens","type":"uint256"}],"name":"transferFrom","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"decimals","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"internalType":"address","name":"tokenOwner","type":"address"}],"name":"balanceOf","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"symbol","outputs":[{"internalType":"string","name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"receiver","type":"address"},{"internalType":"uint256","name":"numTokens","type":"uint256"}],"name":"transfer","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"internalType":"address","name":"owner","type":"address"},{"internalType":"address","name":"delegate","type":"address"}],"name":"allowance","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"inputs":[],"payable":false,"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"tokenOwner","type":"address"},{"indexed":true,"internalType":"address","name":"spender","type":"address"},{"indexed":false,"internalType":"uint256","name":"tokens","type":"uint256"}],"name":"Approval","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"from","type":"address"},{"indexed":true,"internalType":"address","name":"to","type":"address"},{"indexed":false,"internalType":"uint256","name":"tokens","type":"uint256"}],"name":"Transfer","type":"event"}]';
+const deployed_at = '0x760b629e8afbc6a2f089e27a3384917872b60052';
+const contract = new FlexContract(abi, deployed_at, {
+    network: 'rinkeby',
+    infuraKey: 'd3d4f49d8c284642b36eeef8834a421e',
+    providerURI: 'https://rinkeby.infura.io/v3/d3d4f49d8c284642b36eeef8834a421e',
+});
+const from = '0x3b066c7967c36068aee603D956FE82B1b7af2Db1';
+const to = '0x01F8505B9B33e88c339E02C7338F7d95DDeb1b48';
+async function past(contract,from,to,fromBlock,toBlock,cb){
     try {
-        fn(await contract.Transfer(
+        cb(await contract.Transfer(
             {
             fromBlock: fromBlock,
             toBlock: toBlock,
@@ -50,8 +54,8 @@ async function past(contract,from,to,fromBlock,toBlock,fn){
         console.log(err);
     }
 }
-
-function live(contract,from,to,fn){
+ 
+function live(contract,from,to,cb){
     try {
         let watcher = contract.Transfer.watch({
             args: {
@@ -60,13 +64,24 @@ function live(contract,from,to,fn){
             }
          });
          watcher.on('data', (event) => {
-             fn(event)
+             cb(event)
              //watcher.close();
          });
     } catch (err) {
         console.log(err);
     }
 }
+
+live(contract,from,to,(res)=>{
+    console.log(res);
+})
+
+async function method(contract,cb){
+    return cb(await contract.decimals())
+}
+method(contract,(res)=>{
+    console.log(res)
+})
 ```
 
 ## User Guide
