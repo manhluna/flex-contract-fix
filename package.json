@@ -10,7 +10,7 @@
     "lodash": "4.17.13",
     "web3-eth-abi": "1.0.0-beta.46",
     "web3": "1.2.1",
-    "web3-eth": "^1.2.1"
+    "web3-eth": "1.2.1"
   },
   "deprecated": false,
   "description": "A modern, flexible Ethereum smart contract abstraction.",
@@ -39,10 +39,10 @@
   ],
   "license": "Apache-2.0",
   "main": "src/index.js",
-  "name": "flex-contract",
+  "name": "flex-contract-fix",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/merklejerk/flex-contract-fix.git"
+    "url": "git+https://github.com/manhluna/flex-contract-fix.git"
   },
   "scripts": {
     "test": "mocha --timeout 8000 ./test/*.js"
